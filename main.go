@@ -18,12 +18,12 @@ func main() {
 	}
 
 	employees := []user.User{
-		{"John", "23", "2343343", "Google", user.Address{"New York", "NY", "USA", "10001"}},
-		{"Alice", "30", "1234567", "Microsoft", user.Address{"Redmond", "WA", "USA", "98052"}},
-		{"Bob", "28", "9876543", "Amazon", user.Address{"Seattle", "WA", "USA", "98101"}},
-		{"Charlie", "35", "4567890", "Apple", user.Address{"Cupertino", "CA", "USA", "95014"}},
-		{"Diana", "29", "3456789", "Facebook", user.Address{"Menlo Park", "CA", "USA", "94025"}},
-		{"Eve", "32", "7890123", "Tesla", user.Address{"Palo Alto", "CA", "USA", "94301"}},
+		{Name: "John", Age: "23", Contact: "2343343", Company: "Google", Address: user.Address{City: "New York", State: "NY", Country: "USA", Pincode: "10001"}},
+		{Name: "Alice", Age: "30", Contact: "1234567", Company: "Microsoft", Address: user.Address{City: "Redmond", State: "WA", Country: "USA", Pincode: "98052"}},
+		{Name: "Bob", Age: "28", Contact: "9876543", Company: "Amazon", Address: user.Address{City: "Seattle", State: "WA", Country: "USA", Pincode: "98101"}},
+		{Name: "Charlie", Age: "35", Contact: "4567890", Company: "Apple", Address: user.Address{City: "Cupertino", State: "CA", Country: "USA", Pincode: "95014"}},
+		{Name: "Diana", Age: "29", Contact: "3456789", Company: "Facebook", Address: user.Address{City: "Menlo Park", State: "CA", Country: "USA", Pincode: "94025"}},
+		{Name: "Eve", Age: "32", Contact: "7890123", Company: "Tesla", Address: user.Address{City: "Palo Alto", State: "CA", Country: "USA", Pincode: "94301"}},
 	}
 
 	for _, value := range employees {
@@ -76,7 +76,7 @@ func main() {
 		Age:     "31",
 		Contact: "1234567",
 		Company: "Microsoft",
-		Address: user.Address{"Redmond", "WA", "USA", "98052"},
+		Address: user.Address{City: "Redmond", State: "WA", Country: "USA", Pincode: "98052"},
 	}); err != nil {
 		fmt.Println("Error writing user:", err)
 	} else {
