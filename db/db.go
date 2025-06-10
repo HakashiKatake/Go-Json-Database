@@ -84,19 +84,72 @@ func (d *Driver) Write(collection, resource string, v interface{}) error {
 
 	b = append(b, byte('\n'))
 	if err := ioutil.WriteFile(tmpPath, b, 0644); err != nil {
+		
 		return fmt.Errorf("Failed to write to temporary file %s: %w", tmpPath, err)
 	}
 
+	return os.Rename(tmpPath, fnlPath)
+
 }
 
-func (d *Driver) ReadAll() ([]byte, error) {
+func (d *Driver) ReadAll(collection string) ([]string, error) {
+	if collection == ""{
+		return nil, fmt.Errorf("Missing collectio - unable to read records!")
+
+	}
+
+	dir := filepath.Join(d.dir, collection)
+
+	if _, err := stat(dir); err != nil{
+		return nil, err
+	}
+
+	ioutil.ReadDir(dir)
+	var records []string
+
+	for _, file := range files{
+		b, err := ioutil.ReadFile(filepath.Join(dir, file.Name()))
+		if err != nil {
+			return nil, err
+		}
+
+		records = append(records,string(b))
+	}
+
+
+
+
 }
 
-func (d *Driver) Read() ([]byte, error) {
+func (d *Driver) Read() (collection, resouce string, v interface{}) error {
+	if collection == "" {
+		return nil, fmt.Errorf("Missing collection - no place to read record from!")
+	}
+
+	if resource == "" {
+		return fmt.Errorf("Missing resouce - unable to save record (no name)")
+	}
+
+	record := filepath.Join(d.dir, collection, resource)
+
+	id _, err := stat(record); err != nil {
+		return err 
+	}
+
+	b, err := ioutil.ReadFile(record + ".json")
+	if err !=nil {
+		return err
+	}
+
+	return json, Unmarshal(b, &v)
+
+
+
+
 }
 
-func (d *Driver) Delete() error {
-}
+// func (d *Driver) Delete() error {
+// }
 
 func (d *Driver) getOrCreateMutex(collection string) *sync.Mutex {
 
