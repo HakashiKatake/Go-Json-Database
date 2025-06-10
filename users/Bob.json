@@ -1,12 +1,12 @@
 {
- 	"Name": "Bob",
- 	"Age": 28,
- 	"Contact": "9876543",
- 	"Company": "Amazon",
- 	"Address": {
- 	 	"City": "Seattle",
- 	 	"State": "WA",
- 	 	"Country": "USA",
- 	 	"Pincode": 98101
+ 	"userName": "Bob",
+ 	"userAge": 28,
+ 	"userContact": "9876543",
+ 	"userCompany": "Amazon",
+ 	"userAddress": {
+ 	 	"addressCity": "Seattle",
+ 	 	"addressState": "WA",
+ 	 	"addressCountry": "USA",
+ 	 	"addressPincode": 98101
  	}
 }

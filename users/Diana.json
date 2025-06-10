@@ -1,12 +1,12 @@
 {
- 	"Name": "Diana",
- 	"Age": 29,
- 	"Contact": "3456789",
- 	"Company": "Facebook",
- 	"Address": {
- 	 	"City": "Menlo Park",
- 	 	"State": "CA",
- 	 	"Country": "USA",
- 	 	"Pincode": 94025
+ 	"userName": "Diana",
+ 	"userAge": 29,
+ 	"userContact": "3456789",
+ 	"userCompany": "Facebook",
+ 	"userAddress": {
+ 	 	"addressCity": "Menlo Park",
+ 	 	"addressState": "CA",
+ 	 	"addressCountry": "USA",
+ 	 	"addressPincode": 94025
  	}
 }

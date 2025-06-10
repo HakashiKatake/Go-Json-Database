@@ -1,12 +1,12 @@
 {
- 	"Name": "Alice",
- 	"Age": 31,
- 	"Contact": "1234567",
- 	"Company": "Microsoft",
- 	"Address": {
- 	 	"City": "Redmond",
- 	 	"State": "WA",
- 	 	"Country": "USA",
- 	 	"Pincode": 98052
+ 	"userName": "Alice",
+ 	"userAge": 31,
+ 	"userContact": "1234567",
+ 	"userCompany": "Microsoft",
+ 	"userAddress": {
+ 	 	"addressCity": "Redmond",
+ 	 	"addressState": "WA",
+ 	 	"addressCountry": "USA",
+ 	 	"addressPincode": 98052
  	}
 }

@@ -1,12 +1,12 @@
 {
- 	"Name": "Charlie",
- 	"Age": 35,
- 	"Contact": "4567890",
- 	"Company": "Apple",
- 	"Address": {
- 	 	"City": "Cupertino",
- 	 	"State": "CA",
- 	 	"Country": "USA",
- 	 	"Pincode": 95014
+ 	"userName": "Charlie",
+ 	"userAge": 35,
+ 	"userContact": "4567890",
+ 	"userCompany": "Apple",
+ 	"userAddress": {
+ 	 	"addressCity": "Cupertino",
+ 	 	"addressState": "CA",
+ 	 	"addressCountry": "USA",
+ 	 	"addressPincode": 95014
  	}
 }

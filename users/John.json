@@ -1,12 +1,12 @@
 {
- 	"Name": "John",
- 	"Age": 23,
- 	"Contact": "2343343",
- 	"Company": "Google",
- 	"Address": {
- 	 	"City": "New York",
- 	 	"State": "NY",
- 	 	"Country": "USA",
- 	 	"Pincode": 10001
+ 	"userName": "John",
+ 	"userAge": 23,
+ 	"userContact": "2343343",
+ 	"userCompany": "Google",
+ 	"userAddress": {
+ 	 	"addressCity": "New York",
+ 	 	"addressState": "NY",
+ 	 	"addressCountry": "USA",
+ 	 	"addressPincode": 10001
  	}
 }
