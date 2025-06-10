@@ -58,14 +58,14 @@ func New(dir string, options *Options) (*Driver, error) {
 
 func (d *Driver) Write(collection, resource string, v interface{}) error {
 	if collection == "" {
-		return fmt.Errorf("Missing collection - no place to save record!")
+		return fmt.Errorf("Missing collection - no place to save record")
 	}
 
 	if resource == "" {
 		return fmt.Errorf("Missing resource - no place to save record!")
 	}
 
-	mutex := d.getOrCreateMutex()
+	mutex := d.getOrCreateMutex(collection)
 	mutex.Lock()
 	defer mutex.Unlock()
 
@@ -84,7 +84,7 @@ func (d *Driver) Write(collection, resource string, v interface{}) error {
 
 	b = append(b, byte('\n'))
 	if err := ioutil.WriteFile(tmpPath, b, 0644); err != nil {
-		
+
 		return fmt.Errorf("Failed to write to temporary file %s: %w", tmpPath, err)
 	}
 
@@ -93,37 +93,36 @@ func (d *Driver) Write(collection, resource string, v interface{}) error {
 }
 
 func (d *Driver) ReadAll(collection string) ([]string, error) {
-	if collection == ""{
+	if collection == "" {
 		return nil, fmt.Errorf("Missing collectio - unable to read records!")
 
 	}
 
 	dir := filepath.Join(d.dir, collection)
 
-	if _, err := stat(dir); err != nil{
+	if _, err := stat(dir); err != nil {
 		return nil, err
 	}
 
-	ioutil.ReadDir(dir)
+	files, _ := ioutil.ReadDir(dir)
 	var records []string
 
-	for _, file := range files{
+	for _, file := range files {
 		b, err := ioutil.ReadFile(filepath.Join(dir, file.Name()))
 		if err != nil {
 			return nil, err
 		}
 
-		records = append(records,string(b))
+		records = append(records, string(b))
 	}
 
-
-
+	return records, nil
 
 }
 
-func (d *Driver) Read() (collection, resouce string, v interface{}) error {
+func (d *Driver) Read(collection, resource string, v interface{}) error {
 	if collection == "" {
-		return nil, fmt.Errorf("Missing collection - no place to read record from!")
+		return fmt.Errorf("Missing collection - no place to read record from!")
 	}
 
 	if resource == "" {
@@ -132,27 +131,50 @@ func (d *Driver) Read() (collection, resouce string, v interface{}) error {
 
 	record := filepath.Join(d.dir, collection, resource)
 
-	id _, err := stat(record); err != nil {
-		return err 
-	}
-
-	b, err := ioutil.ReadFile(record + ".json")
-	if err !=nil {
+	if _, err := stat(record); err != nil {
 		return err
 	}
 
-	return json, Unmarshal(b, &v)
+	b, err := ioutil.ReadFile(record + ".json")
+	if err != nil {
+		return err
+	}
 
-
-
+	return json.Unmarshal(b, &v)
 
 }
 
-// func (d *Driver) Delete() error {
-// }
+func (d *Driver) Delete(collection, resource string) error {
+	path := filepath.Join(collection, resource)
+	mutex := d.getOrCreateMutex(collection)
+	mutex.Lock()
+	defer mutex.Unlock()
+
+	dir := filepath.Join(d.dir, path)
+	switch fi, err := stat(dir); {
+	case fi == nil, err != nil:
+		return fmt.Errorf("Failed to delete record %s: %w", dir, err)
+
+	case fi.Mode().IsDir():
+		return os.RemoveAll(dir)
+
+	case fi.Mode().IsRegular():
+		return os.RemoveAll(dir + ".json")
+	}
+	return nil
+
+}
 
 func (d *Driver) getOrCreateMutex(collection string) *sync.Mutex {
+	d.mutex.Lock()
+	defer d.mutex.Unlock()
+	m, ok := d.mutexes[collection]
 
+	if !ok {
+		m = &sync.Mutex{}
+		d.mutexes[collection] = m
+	}
+	return m
 }
 
 func stat(path string) (fi os.FileInfo, err error) {

@@ -3,12 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"os"
-	"sync"
-	"github.com/jcelliott/lumber"
-	
-
-	
 )
 
 const Version = "1.0.1"
@@ -40,7 +34,7 @@ func main() {
 
 	}
 
-	records , err := db.ReadAll("users")
+	records, err := db.ReadAll("users")
 	if err != nil {
 		fmt.Println("Error", err)
 	}
@@ -51,7 +45,7 @@ func main() {
 
 	for _, f := range records {
 		employeeFound := User{}
-		if err := json.Unmarshal([]byte9f), &emplyeeFound); err != nil {
+		if err := json.Unmarshal([]byte(f), &employeeFound); err != nil {
 			fmt.Println("Error unmarshalling record:", err)
 			continue
 		}
@@ -62,19 +56,10 @@ func main() {
 
 	fmt.Println("All Users:", allusers)
 
-	if err := db.Delete("user", "john") err != nil {
+	if err := db.Delete("users", "John"); err != nil {
 		fmt.Println("Error deleting user:", err)
 	} else {
 		fmt.Println("User deleted successfully")
 	}
-
-	// if err := db.Delete("user", "") {
-	// 	fmt.Println("Error deleting user:", err)
-	// } 
-
-
-
-
-
 
 }
