@@ -1,6 +1,10 @@
 package db
 
-import "sync"
+import (
+	"os"
+	"path/filepath"
+	"sync"
+)
 
 type (
 	Logger interface {
@@ -12,7 +16,7 @@ type (
 		Trace(string, ...interface{})
 	}
 
-	Drive struct {
+	Driver struct {
 		mutex   sync.Mutex
 		mutexes map[string]*sync.Mutex
 		dir     string
@@ -20,19 +24,48 @@ type (
 	}
 )
 
-func New() {
+type Options struct {
+	Logger
+}
+
+func New(dir string, options *Options) (*Driver, error) {
+	dir = filepath.Clean(dir)
+
+	opts := Options{}
+
+	if options != nil {
+		opts = *options
+	}
+
+	driver := Driver{
+		dir:     dir,
+		mutexes: make(map[string]*sync.Mutex),
+		log:     opts.Logger,
+	}
+
+	if _, err := os.Stat(dir); err == nil {
+		opts.Logger.Debug("Database directory already exists, using existing directory: %s", dir)
+		return &driver, nil
+	}
+
+	opts.Logger.Debug("Creating database directory: %s", dir)
+	return &driver, os.MkdirAll(dir, 0755)
 
 }
 
-func (d *Drive) Write() error {
+func (d *Driver) Write() error {
 
 }
 
-func (d *Drive) ReadAll() ([]byte, error) {
+func (d *Driver) ReadAll() ([]byte, error) {
 }
 
-func (d *Drive) Read() ([]byte, error) {
+func (d *Driver) Read() ([]byte, error) {
 }
 
-func (d *Drive) Delete() error {
+func (d *Driver) Delete() error {
+}
+
+func (d *Driver) getOrCreateMutex() {
+
 }
