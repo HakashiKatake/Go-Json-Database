@@ -1,0 +1,12 @@
+{
+ 	"Name": "Diana",
+ 	"Age": 29,
+ 	"Contact": "3456789",
+ 	"Company": "Facebook",
+ 	"Address": {
+ 	 	"City": "Menlo Park",
+ 	 	"State": "CA",
+ 	 	"Country": "USA",
+ 	 	"Pincode": 94025
+ 	}
+}

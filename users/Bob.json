@@ -1,0 +1,12 @@
+{
+ 	"Name": "Bob",
+ 	"Age": 28,
+ 	"Contact": "9876543",
+ 	"Company": "Amazon",
+ 	"Address": {
+ 	 	"City": "Seattle",
+ 	 	"State": "WA",
+ 	 	"Country": "USA",
+ 	 	"Pincode": 98101
+ 	}
+}

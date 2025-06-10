@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"sync"
+
+	"github.com/jcelliott/lumber"
 )
 
 type (
@@ -38,6 +40,10 @@ func New(dir string, options *Options) (*Driver, error) {
 
 	if options != nil {
 		opts = *options
+	}
+
+	if opts.Logger == nil {
+		opts.Logger = lumber.NewConsoleLogger((lumber.INFO))
 	}
 
 	driver := Driver{
